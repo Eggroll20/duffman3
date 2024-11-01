@@ -3,82 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Protected Access</title>
+    <title>Password Protected</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        .error {
-            color: red;
-        }
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        #content { display: none; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <h2>Please enter the password to access the site:</h2>
-    <input type="password" id="passwordInput" placeholder="Enter password">
-    <button onclick="checkPassword()">Submit</button>
-    <p class="error" id="errorMessage"></p>
+    <div id="login">
+        <h2>Enter Password</h2>
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="checkPassword()">Submit</button>
+        <p id="error" class="hidden" style="color: red;">Incorrect password!</p>
+    </div>
+    <div id="content">
+        <h1>Welcome to the Password Protected Site!</h1>
+        <p>This is your secure content.</p>
+    </div>
 
     <script>
-        const correctPassword = "Bruh"; // Change this to your desired password
-        const redirectUrl = "https://elegant-marigold-9e200b.netlify.app/"; // Change this to your desired gaming site URL
+        const correctPassword = 'bruh'; // Change this to your desired password
 
         function checkPassword() {
-            const userInput = document.getElementById("passwordInput").value;
-            const errorMessage = document.getElementById("errorMessage");
-
-            if (userInput === correctPassword) {
-                // Redirect to the specified URL
-                window.location.href = redirectUrl;https://elegant-marigold-9e200b.netlify.app/
+            const inputPassword = document.getElementById('password').value;
+            if (inputPassword === correctPassword) {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
             } else {
-                errorMessage.textContent = "Incorrect password. Please try again.";
+                document.getElementById('error').classList.remove('hidden');
             }
         }
     </script>
 </body>
 </html>
-
-        }
-    </script>
-</body>
-</html>
-
-
-#passcode-form {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.passcode-input {
-    width: 300px;
-    padding: 10px;
-    font-size: 18px;
-}
-
-#content {
-    display: none;
-}
-
-#myTopnav {
-    display: none;
-}
-.achtopnav a {
-    float: left;
-    display: block;
-    color: red;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-
-  
