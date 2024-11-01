@@ -1,4 +1,4 @@
-const correctPassword = "mcdonalds"; // Change this to your desired password
+const correctPassword = "bruh"; // Change this to your desired password
 const maxAttempts = 5;
 let attemptCount = 0;
 let lockoutTime = 30000; // 30 seconds lockout time
