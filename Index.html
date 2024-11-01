@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Protected Page</title>
+    <title>Password Protected Access</title>
     <style>
-        #protectedContent {
-            display: none;
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
         }
         .error {
             color: red;
@@ -14,32 +16,30 @@
     </style>
 </head>
 <body>
-    <div id="login">
-        <h2>Please enter the password:</h2>
-        <input type="password" id="passwordInput">
-        <button onclick="checkPassword()">Submit</button>
-        <p class="error" id="errorMessage"></p>
-    </div>
-
-    <div id="protectedContent">
-        <h1>why wont this work</h1>
-        <p>somone pls help.</p>
-        <!-- Add more content here -->
-    </div>
+    <h2>Please enter the password to access the site:</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password">
+    <button onclick="checkPassword()">Submit</button>
+    <p class="error" id="errorMessage"></p>
 
     <script>
         const correctPassword = "Bruh"; // Change this to your desired password
+        const redirectUrl = "https://elegant-marigold-9e200b.netlify.app/"; // Change this to your desired gaming site URL
 
         function checkPassword() {
             const userInput = document.getElementById("passwordInput").value;
             const errorMessage = document.getElementById("errorMessage");
 
             if (userInput === correctPassword) {
-                document.getElementById("protectedContent").style.display = "block";
-                document.getElementById("login").style.display = "none";
+                // Redirect to the specified URL
+                window.location.href = redirectUrl;https://elegant-marigold-9e200b.netlify.app/
             } else {
                 errorMessage.textContent = "Incorrect password. Please try again.";
             }
+        }
+    </script>
+</body>
+</html>
+
         }
     </script>
 </body>
