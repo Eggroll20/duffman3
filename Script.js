@@ -18,7 +18,7 @@ document.getElementById("loginButton").addEventListener("click", () => {
         attemptCount++;
         document.getElementById("message").textContent = "Incorrect password. Try again.";
         
-        if (attemptCount >= maxAttempts) {
+        if (attemptCount >= 5 maxAttempts) {
             isLocked = true;
             document.getElementById("message").textContent = "Too many attempts! Please wait.";
             setTimeout(() => {
