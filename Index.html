@@ -4,21 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Protected Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        #content {
+            display: none;
+        }
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <div id="loginContainer">
-        <h2>Login</h2>
-        <input type="password" id="password" placeholder="Enter password">
-        <button id="loginButton">Login</button>
-        <p id="message"></p>
+    <div id="content">
+        <h1>Welcome to My Protected Page</h1>
+        <p>This is the content of the page.</p>
     </div>
-    <div id="protectedContent" style="display: none;">
-        <h1>Welcome to the protected page!</h1>
-        <p>This content is only visible to authorized users.</p>
+    <div id="login">
+        <h2>Please enter the password:</h2>
+        <input type="password" id="passwordInput">
+        <button onclick="checkPassword()">Submit</button>
+        <p class="error" id="errorMessage"></p>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        const correctPassword = "mcdonalds"; // Change this to your desired password
+
+        function checkPassword() {
+            const userInput = document.getElementById("passwordInput").value;
+            const errorMessage = document.getElementById("errorMessage");
+
+            if (userInput === correctPassword) {
+                document.getElementById("content").style.display = "block";
+                document.getElementById("login").style.display = "none";
+            } else {
+                errorMessage.textContent = "Incorrect password. Please try again.";
+            }
+        }
+    </script>
 </body>
 </html>
+`
 
 
