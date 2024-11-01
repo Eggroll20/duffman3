@@ -45,7 +45,210 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html>
+<head>
+<title>MCRed2024</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="IMG_1722.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="IMG_1722.png"> 
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+#passcode-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
 
-window.location.href = "https://cute-madeleine-57ece6.netlify.app/";
+.passcode-input {
+    width: 300px;
+    padding: 10px;
+    font-size: 18px;
+}
 
+#content {
+    display: none;
+}
 
+#myTopnav {
+    display: none;
+}
+.achtopnav a {
+    float: left;
+    display: block;
+    color: red;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+</style>
+<!-- Include CryptoJS Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+</head>
+<body>
+<div class="topnav" id="myTopnav">
+  <a class="active" href="index.html">Home</a>
+  <a href="games.html" id="games-link">Games</a>
+  <a href="proxy.html" id="proxy-link">Proxys</a>
+  <a href="other.html" id="other-link">Other</a>
+  <a class="achtopnav" href="achivements.html">Achivements</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+
+<!-- Passcode Authentication Form -->
+<div id="passcode-form">
+    <div>
+        <h2 style="color: blue;">Enter Passcode:</h2>
+        <input type="password" id="passcode" class="passcode-input" onkeydown="if(event.keyCode==13){authenticate()}">
+        <button onclick="authenticate()">Submit</button>
+        <p id="lockout-message" style="color: red; display: none;">
+            Too many failed attempts. Please try again in <span id="countdown-timer">30 minutes</span>.
+        </p>
+    </div>
+</div>
+
+<!-- Content -->
+<div id="content">
+    <ul id='list'> 
+        <li class="animals"><a href="games.html" id="games-link">Games</a></li>
+        <li class="animals"><a href="proxy.html" id="proxy-link">Proxys (NOW FIXED!!!!)</a></li> 
+        <li class="animals"><a href="other.html" id="other-link">Other</a></li>
+        <li class="animals"><a href="contest.html">Contest Results</a></li>
+        <li class="animals"><a href="thevault.html">The Vault</a></li>
+        <li class="animals"><a href="wipgames.html">Work In Progress Stuff</a></li>
+        <li class="animals"><a href="bookmarklets.html">Bookmarklets</a></li>
+        <li class="animals" style="font-size: 35px;"><a href="https://forms.gle/SggDkpfon1dSn9tG6">Vote for new contest PLZ!</a></li>
+        <li class="animals" style="font-size: 50px;"><a href="https://mcredproxy.github.io/service/hvtrs8%2F-wuw%2Ccjavz%7B.aoo%2F0445%3B227153869" style="color: red">CHATROOM!</a></li>
+        <li class="animals"><a href="https://iceman505proxy.github.io/service/hvtrs8%2F-uq2%3A.ahctxy%2Ccmm-26679005371%3A4%3B">Chatroom (incase first doesnt work).</a></li>
+        <li class="animals" style="font-size: 35px;"><a href="https://forms.gle/T8k9cway5HukHGTy6">Please suggest movies to add into TV here!</a></li>
+    </ul> 
+    <button id="logout">Log Out</button>
+</div>
+
+<script>
+    document.getElementById("myTopnav").style.display = "none";
+
+    var enteredPasscode = localStorage.getItem("enteredPasscode");
+
+    // Fetch the hashed passcode from your GitHub repository
+    async function fetchHashedPasscode() {
+        let response = await fetch('https://raw.githubusercontent.com/MCRed2024/urlfetcher/main/fetcher.txt');
+        let fullResponse = await response.text();
+        return fullResponse.trim();
+    }
+
+    // Check if the enteredPasscode is valid
+    async function checkValidPasscode() {
+        const hashedPasscodeFromRepo = await fetchHashedPasscode();
+        const hashedEnteredPasscode = CryptoJS.MD5(enteredPasscode).toString();
+        
+        if (hashedEnteredPasscode === hashedPasscodeFromRepo) {
+            document.getElementById("content").style.display = "block";
+            document.getElementById("myTopnav").style.display = "block";
+            document.getElementById("passcode-form").style.display = "none";
+        } else {
+            // If not valid, show the passcode form
+            document.getElementById("passcode-form").style.display = "flex";
+        }
+    }
+
+    // Immediately check the passcode upon loading
+    if (enteredPasscode) {
+        checkValidPasscode();
+    } else {
+        // If no passcode is entered, show the passcode form
+        document.getElementById("passcode-form").style.display = "flex";
+    }
+
+    async function authenticate() {
+        const maxAttempts = 3;
+        const lockoutDuration = 30 * 60 * 1000; // 30 minutes in milliseconds
+
+        const passcode = document.getElementById("passcode").value;
+
+        localStorage.setItem("enteredPasscode", passcode); // Save the entered passcode in localStorage
+
+        const hashedPasscode = CryptoJS.MD5(passcode).toString(); // Hash the entered passcode with MD5
+
+        let attempts = parseInt(localStorage.getItem("attempts") || "0");
+        let lockoutTime = parseInt(localStorage.getItem("lockoutTime") || "0");
+
+        function updateCountdown() {
+            const now = Date.now();
+            const timeLeft = lockoutTime - now;
+            if (timeLeft > 0) {
+                const minutes = Math.floor(timeLeft / 60000);
+                const seconds = Math.floor((timeLeft % 60000) / 1000);
+                document.getElementById("countdown-timer").textContent = `${minutes} minute(s) and ${seconds} second(s)`;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                document.getElementById("lockout-message").style.display = "none";
+                localStorage.removeItem("lockoutTime");
+                localStorage.removeItem("attempts");
+            }
+        }
+
+        if (Date.now() < lockoutTime) {
+            document.getElementById("lockout-message").style.display = "block";
+            updateCountdown();
+            return;
+        } else {
+            document.getElementById("lockout-message").style.display = "none";
+            localStorage.removeItem("lockoutTime");
+        }
+
+        let response = await fetch('https://raw.githubusercontent.com/MCRed2024/urlfetcher/main/fetcher.txt');
+        let fullResponse = await response.text();
+
+        if (hashedPasscode === fullResponse.trim()) {
+            document.getElementById("content").style.display = "block";
+            document.getElementById("myTopnav").style.display = "block";
+            document.getElementById("passcode-form").style.display = "none";
+            localStorage.removeItem("attempts");
+        } else {
+            attempts++;
+            localStorage.setItem("attempts", attempts);
+            if (attempts >= maxAttempts) {
+                lockoutTime = Date.now() + lockoutDuration;
+                localStorage.setItem("lockoutTime", lockoutTime);
+                document.getElementById("lockout-message").style.display = "block";
+                updateCountdown();
+            } else {
+                alert("Incorrect passcode. Please try again.");
+            }
+        }
+    }
+
+    window.addEventListener('storage', function(event) {
+        if (event.key === "enteredPasscode" && event.newValue) {
+            document.getElementById("content").style.display = "block";
+            document.getElementById("myTopnav").style.display = "block";
+            document.getElementById("passcode-form").style.display = "none";
+        }
+    });
+
+    document.getElementById("logout").addEventListener("click", function() {
+        // Remove the enteredPasscode variable from localStorage
+        localStorage.removeItem("enteredPasscode");
+        
+        // Reload the page
+        location.reload();
+    });
+</script>
+
+</body>
+</html>
+  
