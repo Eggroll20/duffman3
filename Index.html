@@ -36,11 +36,6 @@
         #mainContent {
             padding: 20px;
         }
-
-        /* Initially hide main content */
-        #mainContent.hidden {
-            display: none;
-        }
     </style>
     <script>
         function checkPassword() {
@@ -48,7 +43,6 @@
 
             if (password === "Bruh") { // Replace with your actual password
                 document.getElementById("overlay").style.display = "none"; // Hide overlay
-                document.getElementById("mainContent").classList.remove("hidden"); // Show main content
             } else {
                 alert("Incorrect password. Try again.");
             }
@@ -64,7 +58,10 @@
         </div>
     </div>
 
-    <div id="mainContent" class="hidden">p>Feel free to add more features and games!</p>
+    <div id="mainContent">
+        <h1>Welcome to the Gaming World!</h1>
+        <p>This is where the content of your site is visible even while the password prompt is active.</p>
+        <p>Feel free to add more features and games!</p>
         <!-- Your gaming site content goes here -->
     </div>
 </body>
