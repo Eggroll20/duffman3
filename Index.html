@@ -3,70 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gaming Site</title>
+    <title>Protected Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            position: relative;
-        }
-
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000; /* Ensure overlay is on top */
+            height: 100vh;
+            margin: 0;
+            background-color: #f2f2f2;
         }
-
-        #passwordInput {
-            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for input */
-            padding: 20px;
-            border-radius: 5px;
+        #password-form {
             text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        #mainContent {
+            background-color: #fff;
             padding: 20px;
-            /* Add any styles for your gaming site here */
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input[type="password"] {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
         }
     </style>
-    <script>
-        function checkPassword() {
-            const password = document.getElementById("password").value;
-
-            if (password === "Bruh") { // Replace with your actual password
-                document.getElementById("overlay").style.display = "none"; // Hide overlay
-            } else {
-                alert("Incorrect password. Try again.");
-            }
-        }
-    </script>
 </head>
 <body>
-    <div id="overlay">
-        <div id="passwordInput">
-            <h2>Enter Password to Access the Site</h2>
-            <input type="password" id="password" required>
-            <button onclick="checkPassword()">Submit</button>
-        </div>
-    </div>
 
-    <div id="mainContent">
-        <h1>Your Gaming Site</h1>
-        <p>This is where you can place your actual gaming site content.</p>
-        <p>Feel free to add games, features, and any other content you want here!</p>
-        <!-- Your gaming site content goes here -->
-    </div>
+<div id="password-form">
+    <h2>Enter Password to Access</h2>
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkPassword()">Submit</button>
+    <p id="message" style="color: red;"></p>
+</div>
+
+<script>
+    function checkPassword() {
+        const password = document.getElementById("password").value;
+        const correctPassword = "Bruh"; // Set your password here
+        const message = document.getElementById("message");
+
+        if (password === correctPassword) {
+            message.textContent = "Access granted.";
+            window.location.href = "protected_page.html"; // Redirect to the protected page
+        } else {
+            message.textContent = "Incorrect password. Please try again.";
+        }
+    }
+</script>
+
 </body>
 </html>
+
 
  
 
