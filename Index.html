@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            position: relative;
         }
 
         #overlay {
@@ -17,7 +18,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -32,7 +33,12 @@
         }
 
         #mainContent {
-            display: none; /* Hide main content initially */
+            padding: 20px;
+        }
+
+        /* Initially hide main content */
+        #mainContent.hidden {
+            display: none;
         }
     </style>
     <script>
@@ -41,26 +47,7 @@
 
             if (password === "Bruh") { // Replace with your actual password
                 document.getElementById("overlay").style.display = "none"; // Hide overlay
-                document.getElementById("mainContent").style.display = "block"; // Show main content
+                document.getElementById("mainContent").classList.remove("hidden"); // Show main content
             } else {
-                alert("Incorrect password. Try again.");
-            }
-        }
-    </script>
-</head>
-<body>
-    <div id="overlay">
-        <div id="passwordInput">
-            <h2>Enter Password to Access the Gaming Site</h2>
-            <input type="password" id="password" required>
-            <button onclick="checkPassword()">Submit</button>
-        </div>
-    </div>
+                aler
 
-    <div id="mainContent">
-        <h1>Welcome to the Gaming World!</h1>
-        <!-- Your gaming site content goes here -->
-        <p>This is where the content of your site would be visible after entering the correct password.</p>
-    </div>
-</body>
-</html>
