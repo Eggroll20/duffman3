@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensure overlay is on top */
+        }
+
+        #passwordInput {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        #mainContent {
+            display: none; /* Hide main content initially */
+        }
+    </style>
+    <script>
+        function checkPassword() {
+            const password = document.getElementById("password").value;
+
+            if (password === "Bruh") { // Replace with your actual password
+                document.getElementById("overlay").style.display = "none"; // Hide overlay
+                document.getElementById("mainContent").style.display = "block"; // Show main content
+            } else {
+                alert("Incorrect password. Try again.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="overlay">
+        <div id="passwordInput">
+            <h2>Enter Password to Access the Gaming Site</h2>
+            <input type="password" id="password" required>
+            <button onclick="checkPassword()">Submit</button>
+        </div>
+    </div>
+
+    <div id="mainContent">
+        <h1>Welcome to the Gaming World!</h1>
+        <!-- Your gaming site content goes here -->
+        <p>This is where the content of your site would be visible after entering the correct password.</p>
+    </div>
+</body>
+</html>
