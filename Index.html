@@ -26,10 +26,11 @@
         }
 
         #passwordInput {
-            background: white;
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for input */
             padding: 20px;
             border-radius: 5px;
             text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         #mainContent {
@@ -49,5 +50,24 @@
                 document.getElementById("overlay").style.display = "none"; // Hide overlay
                 document.getElementById("mainContent").classList.remove("hidden"); // Show main content
             } else {
-                aler
+                alert("Incorrect password. Try again.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="overlay">
+        <div id="passwordInput">
+            <h2>Enter Password to Access the Gaming Site</h2>
+            <input type="password" id="password" required>
+            <button onclick="checkPassword()">Submit</button>
+        </div>
+    </div>
+
+    <div id="mainContent" class="hidden">p>Feel free to add more features and games!</p>
+        <!-- Your gaming site content goes here -->
+    </div>
+</body>
+</html>
+
 
